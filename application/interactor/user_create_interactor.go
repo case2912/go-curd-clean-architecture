@@ -1,9 +1,9 @@
 package interactor
 
 import (
-	"github.com/case2912/go-curd-clean-architecture/adapter"
 	"github.com/case2912/go-curd-clean-architecture/application/usecase"
 	"github.com/case2912/go-curd-clean-architecture/domain"
+	"github.com/case2912/go-curd-clean-architecture/interface/adapter"
 )
 
 type UserCreateInteractor struct {

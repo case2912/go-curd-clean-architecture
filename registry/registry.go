@@ -1,13 +1,16 @@
 package registry
 
 import (
-	"github.com/case2912/go-curd-clean-architecture/adapter"
-	"github.com/case2912/go-curd-clean-architecture/application/controller"
+	"net/http"
+
 	"github.com/case2912/go-curd-clean-architecture/application/interactor"
 	"github.com/case2912/go-curd-clean-architecture/application/usecase"
+	"github.com/case2912/go-curd-clean-architecture/driver/api"
 	"github.com/case2912/go-curd-clean-architecture/driver/database"
-	"github.com/case2912/go-curd-clean-architecture/driver/presenter"
-	"github.com/case2912/go-curd-clean-architecture/driver/repository"
+	"github.com/case2912/go-curd-clean-architecture/interface/adapter"
+	"github.com/case2912/go-curd-clean-architecture/interface/controller"
+	"github.com/case2912/go-curd-clean-architecture/interface/presenter"
+	"github.com/case2912/go-curd-clean-architecture/interface/repository"
 )
 
 type Registry struct {
@@ -36,6 +39,10 @@ func (r *Registry) NewUserCreateInteractor() usecase.UserCreateUsecase {
 	return interactor.NewUserCreateInteractor(r.NewUserRepository(), r.NewUserCreatePresenter())
 }
 
-func (r *Registry) NewUserController() *controller.UserController {
+func (r *Registry) NewUserController() adapter.UserController {
 	return controller.NewUserController(r.NewUserCreateInteractor())
+}
+
+func (r *Registry) NewCreateUserHandler() http.Handler {
+	return api.NewCreateUserHandler(r.NewUserController())
 }

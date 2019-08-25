@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/case2912/go-curd-clean-architecture/driver/api"
 	"github.com/case2912/go-curd-clean-architecture/driver/database"
 	"github.com/case2912/go-curd-clean-architecture/registry"
 	"github.com/gorilla/mux"
@@ -23,11 +22,8 @@ func main() {
 		os.Getenv("POSTGRES_DB"),
 		os.Getenv("SSL_MODE"),
 	))
-	controller := registry.NewUserController()
 	router := mux.NewRouter()
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		api.Create(w, r, controller)
-	})
+	router.Handle("/", registry.NewCreateUserHandler())
 	http.Handle("/", router)
 	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	http.ListenAndServe(port, nil)

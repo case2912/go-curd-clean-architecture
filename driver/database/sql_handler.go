@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/case2912/go-curd-clean-architecture/adapter"
+	"github.com/case2912/go-curd-clean-architecture/interface/adapter"
 )
 
 type SQLHandler struct {
