@@ -13,11 +13,10 @@ type SQLHandler struct {
 }
 
 func NewSQLHandler(config *SQLConfig) adapter.SQLHandler {
-	fmt.Println(config.GetStr(), config.SQLName)
 	conn, err := sql.Open(config.SQLName, config.GetStr())
 
 	if err != nil {
-		err = fmt.Errorf("Initialize database connection is failed :%s", err.Error())
+		err = fmt.Errorf("Initialize database connection is failed:\n%s", err.Error())
 		log.Fatal(err)
 	}
 	err = conn.Ping()

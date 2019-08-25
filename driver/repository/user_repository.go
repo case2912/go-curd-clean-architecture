@@ -18,12 +18,10 @@ func NewUserRepository(sqlHandler adapter.SQLHandler) adapter.UserRepository {
 }
 
 func (repo *UserRepository) Store(user domain.User) domain.User {
-	fmt.Println(user.UserName)
 	row, err := repo.SQLHandler.Query("INSERT INTO account (user_name) VALUES ($1) RETURNING user_name;", user.UserName)
-	fmt.Println(row)
 	defer row.Close()
 	if err != nil {
-		err = fmt.Errorf("Invalid query error :%s", err.Error())
+		err = fmt.Errorf("Invalid query error:\n%s", err.Error())
 	}
 	row.Next()
 	var userName string
