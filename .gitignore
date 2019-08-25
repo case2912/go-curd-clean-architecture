@@ -50,3 +50,4 @@ Temporary Items
 
 .env
 .env.*
+tmp/
