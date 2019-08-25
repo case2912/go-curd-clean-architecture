@@ -8,3 +8,16 @@ services:
       - .env.development
     ports:
       - "8080:8080"
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+  postgres:
+    image: postgres:11.5
+    ports:
+      - 5432:5432
+    env_file:
+      - .env.development
+    hostname: postgres
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
